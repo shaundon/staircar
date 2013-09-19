@@ -173,8 +173,15 @@
     base.error = function(){
       if( typeof(base.options.onError) === "function" ) base.options.onError();
     };
+
+    base.loaded = function(){
+      if( typeof(base.options.afterInit) === "function" ) base.options.afterInit();
+    };
   
     init();
+
+    // afterInit callback.
+    base.loaded();
   };
   
   Downloadify.defaultOptions = {
@@ -184,30 +191,49 @@
     height: 30,
     transparent: true,
     append: false,
-    dataType: "string"
+    dataType: "string",
+    mimeType: "text/plain"
   };
 })();
 
 // Support for jQuery
-if(typeof(jQuery) != "undefined"){
-  (function($){
-    $.fn.downloadify = function(options){
-      return this.each(function(){
-        options = $.extend({}, Downloadify.defaultOptions, options);
-        var dl = Downloadify.create( this, options);
-        $(this).data('Downloadify', dl);  
-      });
-    };
-  })(jQuery);
-};
+if(typeof(jQuery) != "undefined") {
 
-/* mootools helper */
-if(typeof(MooTools) != 'undefined'){
-  Element.implement({
-    downloadify: function(options) {
-      options = $merge(Downloadify.defaultOptions,options);
-      return this.store('Downloadify',Downloadify.create(this,options));
-    }
-  });
+  (function ($) {
+
+    $.fn.downloadify = function(options) {
+
+      return this.each(function () {
+
+        options = $.extend({}, Downloadify.defaultOptions, options);
+
+        var flash = true;
+
+        if (flash) {
+
+          // Create instance of downloadify.
+          var dl = Downloadify.create(this, options);
+
+          // Start downloadify.
+          $(this).data('Downloadify', dl);
+        }
+        else {
+
+          // Encode the data.
+          var encodedData = encodeURIComponent(options.data);
+
+          // Make it into a data URI.
+          var dataURI = "data:" + options.mimeType + "," + encodedData;
+
+          // Navigate to the data URI, which should prompt a download.
+          window.location.href = dataURI;
+        }
+
+      });
+
+    };
+
+  })(jQuery);
+
 };
 
