@@ -1,84 +1,132 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!doctype html>
+<html>
 	<head>
-		<title>Downloadify</title>
-		<style type="text/css" media="screen">
-			body {background: #fff; width: 500px; margin: 20px auto;}
-			label, input, textarea, h1, h2, p { font-family: Arial, sans-serif; font-size: 12pt;}
-			input, textarea { border: solid 1px #aaa; padding: 4px; width: 98%;}
-			label { font-weight: bold;}
-			h1 { font-size: 30pt; font-weight: bold; letter-spacing: -1px;}
-			h2 { font-size: 14pt;}
-			pre { overflow: auto; padding: 10px; background: #222; color: #ccc;}
-		</style>
-		<script type="text/javascript" src="js/swfobject.js"></script>
-		<script type="text/javascript" src="js/downloadify.min.js"></script>
-	</head>
-	<body onload="load();">
-		<h1>Downloadify Example</h1>
-		<p>More info available at the <a href="http://github.com/dcneiner/Downloadify">Github Project Page</a></p>
-		<form>
-			<p>
-				<label for="filename">Filename</label><br />
-				<input type="text" name="filename" value="testfile.txt" id="filename" />
-			</p>
-			<p>
-				<label for="data">File Contents</label><br />
-<textarea cols="60" rows="10" name="data" id="data">
-Whatever you put in this text box will be downloaded and saved in the file. If you leave it blank, no file will be downloaded</textarea>
-			</p>
-			<p id="downloadify">
-				You must have Flash 10 installed to download this file.
-			</p>
-		</form>
+		<title>Downloadify Polyfill Test</title>
 
-		<script type="text/javascript">
-			function load(){
-				Downloadify.create('downloadify',{
-					filename: function(){
-						return document.getElementById('filename').value;
-					},
-					data: function(){ 
-						return document.getElementById('data').value;
-					},
-					onComplete: function(){ alert('Your File Has Been Saved!'); },
-					onCancel: function(){ alert('You have cancelled the saving of this file.'); },
-					onError: function(){ alert('You must put something in the File Contents or there will be nothing to save!'); },
-					swf: 'media/downloadify.swf',
-					downloadImage: 'images/download.png',
-					width: 100,
-					height: 30,
-					transparent: true,
-					append: false
-				});
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript" src="js/swfobject.js"></script>
+		<script type="text/javascript" src="src/downloadify.js"></script>
+
+		<style>
+			body {
+				width: 60%;
+				margin: 50px auto;
 			}
+		</style>
+
+		<script>
+
+			// Hard coded JSON response.
+			var DATA = [
+				{
+					"Header 1": "Data 1",
+					"Header 2": "Data 2",
+					"Header 3": "Data 3"
+				},
+				{
+					"Header 1": "Data 4",
+					"Header 2": "Data 5",
+					"Header 3": "Data 6"
+				},
+				{
+					"Header 1": "Data 7",
+					"Header 2": "Data 8",
+					"Header 3": "Data 9"
+				}
+			];
+
+			$(document).on("click", "#download-btn", function () {
+
+				// Convert JSON to CSV.
+				var csv = JsonToCsv(DATA);
+
+				$("#downloadify-element").downloadify({
+					data: csv,
+					filename: "download.csv",
+					mimeType: "text/csv",
+					afterInit: function() {
+						$("#downloadify-modal").modal();
+					}
+				});
+			});
+
+function JsonToCsv(json) {
+
+	var csv = '';
+
+	// Begin with the header row, using
+	// the keys.
+	for (var key in json[0]) {
+
+		csv += key + ',';
+	}
+
+	// Cut off the trailing comma.
+	csv = csv.substring(0, csv.length-1);
+
+	csv += '\r\n';
+
+	// Iterate through the rows.
+	for (var i=0; i<json.length; i++) {
+
+		var line = '';
+		for (var key in json[i]) {
+
+			if (line != '') {
+				line += ',';
+			}
+
+		    line += json[i][key];
+		}
+
+		csv += line + '\r\n';
+	}
+
+	return csv;
+}
+
 		</script>
-	<h2>Downloadify Invoke Script For This Page</h2>	
-<pre>
-Downloadify.create(&#x27;downloadify&#x27;,{
-  filename: function(){
-    return document.getElementById(&#x27;filename&#x27;).value;
-  },
-  data: function(){ 
-    return document.getElementById(&#x27;data&#x27;).value;
-  },
-  onComplete: function(){ 
-    alert(&#x27;Your File Has Been Saved!&#x27;); 
-  },
-  onCancel: function(){ 
-    alert(&#x27;You have cancelled the saving of this file.&#x27;);
-  },
-  onError: function(){ 
-    alert(&#x27;You must put something in the File Contents or there will be nothing to save!&#x27;); 
-  },
-  swf: &#x27;media/downloadify.swf&#x27;,
-  downloadImage: &#x27;images/download.png&#x27;,
-  width: 100,
-  height: 30,
-  transparent: true,
-  append: false
-});
-</pre>
+
+
+	</head>
+
+	<body>
+
+		<h1>Downloadify Test</h1>
+
+		<p>Download some test JSON data as CSV (hard coded in a <code>script</code>
+			element).
+		</p>
+
+		<p>
+			If your browser supports downloading data URIs, the download will
+			be pure JavaScript. Otherwise, it'll fall back to Flash.
+		</p>
+
+		<button id="download-btn" type="button" class="btn btn-primary">Export (CSV)</button>
+
+		<div id="downloadify-modal" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Your Download Is Ready</h4>
+		      </div>
+		      <div class="modal-body">
+				<p id="downloadify-element" style="text-align: center;">
+					<strong>Your browser doesn't support downloading this file.</strong><br/>
+				    Upgrade to a more modern browser, like <a href="http://www.google.com/chrome" target="_blank">Chrome</a> or <a href="http://www.getfirefox.com" target="_blank">Firefox</a>, or <a href="http://get.adobe.com/flashplayer" target="_blank">download Flash Player</a>. 
+				    </p>
+		      </div>
+
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
 	
 	</body>
 </html>
