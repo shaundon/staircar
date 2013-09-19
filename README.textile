@@ -1,5 +1,4 @@
-*_
-This is a fork of "Downloadify":http://https://github.com/dcneiner/Downloadify.
+*_This is a fork of "Downloadify":http://https://github.com/dcneiner/Downloadify.
 
 The readme below is the same as the original one as the changes here are minor.
 
@@ -8,8 +7,7 @@ This fork adds the following things:
 - A 'mimeType' option, that is used when creating the data URI.
 - An optional 'afterInit' callback function that executes after the flash button has been initialised.
 
-The example in test.html reflects the changes made here. There's a button to download a CSV that's hard coded into the page. When the button is pressed, if the browser supports downloading via a data URI, it simply downloads. If it doesn't, a modal opens containing the flash based download button.
-_*
+The example in test.html reflects the changes made here. There's a button to download a CSV that's hard coded into the page. When the button is pressed, if the browser supports downloading via a data URI, it simply downloads. If it doesn't, a modal opens containing the flash based download button._*
 
 h2. Downloadomatic: Client Side File Creation
 
