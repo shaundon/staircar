@@ -66,7 +66,7 @@ package {
                 over:Boolean       = false,
                 down:Boolean       = false,
                 
-                buttonImage:String = "images/download.png",
+                buttonImage:String = "src/download.png",
                 
                 button:Loader;
     
