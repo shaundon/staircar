@@ -1,10 +1,24 @@
 /*
-  Downloadify: Client Side File Creation
+  Downloadomatic: Client Side File Creation
+
   JavaScript + Flash Library
+  
+  Version: 1.0
 
-  Version: 0.2
+  Shaun Donnelly
+  hello@sdonnelly.co.uk
 
-  Copyright (c) 2009 Douglas C. Neiner
+
+**********
+  Please note that this is a fork of
+  Downloadify (https://github.com/dcneiner/Downloadify).
+
+  Most of the awesome work you see here is part of that
+  original project.
+
+  This fork adds the ability to download using a data URI.
+
+**********
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +38,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 */
+
 package {
   import flash.system.Security;
   import flash.events.Event;
@@ -38,7 +53,7 @@ package {
   
   [SWF(backgroundColor="#CCCCCC")]
   [SWF(backgroundAlpha=0)]
-  public class Downloadify extends Sprite {
+  public class Downloadomatic extends Sprite {
     
     private var options:Object,
                 file:FileReference = new FileReference(),
@@ -55,7 +70,7 @@ package {
                 
                 button:Loader;
     
-    public function Downloadify() {
+    public function Downloadomatic() {
       Security.allowDomain('*');
       
       stage.align = StageAlign.TOP_LEFT;
@@ -141,9 +156,9 @@ package {
     }
     
     protected function onMouseClickEvent(event:Event):void{
-      var theData:String  = ExternalInterface.call('Downloadify.getTextForSave',queue_name),
-          filename:String = ExternalInterface.call('Downloadify.getFileNameForSave',queue_name),
-          dataType:String = ExternalInterface.call('Downloadify.getDataTypeForSave',queue_name);
+      var theData:String  = ExternalInterface.call('Downloadomatic.getTextForSave',queue_name),
+          filename:String = ExternalInterface.call('Downloadomatic.getFileNameForSave',queue_name),
+          dataType:String = ExternalInterface.call('Downloadomatic.getDataTypeForSave',queue_name);
           
       if (dataType == "string" && theData != "") {
         file.save(theData, filename);
@@ -156,17 +171,17 @@ package {
     
     protected function onSaveComplete(event:Event):void{
       trace('Save Complete');
-      ExternalInterface.call('Downloadify.saveComplete',queue_name);
+      ExternalInterface.call('Downloadomatic.saveComplete',queue_name);
     }
     
     protected function onSaveCancel(event:Event):void{
       trace('Save Cancel');
-      ExternalInterface.call('Downloadify.saveCancel',queue_name);  
+      ExternalInterface.call('Downloadomatic.saveCancel',queue_name);  
     }
     
     protected function onSaveError():void{
       trace('Save Error');
-      ExternalInterface.call('Downloadify.saveError',queue_name);  
+      ExternalInterface.call('Downloadomatic.saveError',queue_name);  
     }
     
   }

@@ -1,10 +1,24 @@
 /*
-  Downloadify: Client Side File Creation
+  Downloadomatic: Client Side File Creation
+
   JavaScript + Flash Library
   
-  Version: 0.2
+  Version: 1.0
 
-  Copyright (c) 2009 Douglas C. Neiner
+  Shaun Donnelly
+  hello@sdonnelly.co.uk
+
+
+**********
+  Please note that this is a fork of
+  Downloadify (https://github.com/dcneiner/Downloadify).
+
+  Most of the awesome work you see here is part of that
+  original project.
+
+  This fork adds the ability to download using a data URI.
+
+**********
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -26,56 +40,56 @@
 */
 
 (function(){
-  Downloadify = window.Downloadify = {
+  Downloadomatic = window.Downloadomatic = {
     queue: {},
     uid: new Date().getTime(), 
     getTextForSave: function(queue){
-      var obj = Downloadify.queue[queue];
+      var obj = Downloadomatic.queue[queue];
       if(obj) return obj.getData();
       return "";
     },
     getFileNameForSave: function(queue){
-      var obj = Downloadify.queue[queue];
+      var obj = Downloadomatic.queue[queue];
       if(obj) return obj.getFilename();
       return "";
     },
     getDataTypeForSave: function(queue){
-      var obj = Downloadify.queue[queue];
+      var obj = Downloadomatic.queue[queue];
       if(obj) return obj.getDataType();
       return "";
     },
     saveComplete: function(queue){
-      var obj = Downloadify.queue[queue];
+      var obj = Downloadomatic.queue[queue];
       if(obj) obj.complete();
       return true;
     },
     saveCancel: function(queue){
-      var obj = Downloadify.queue[queue];
+      var obj = Downloadomatic.queue[queue];
       if(obj) obj.cancel();
       return true;
     },
     saveError: function(queue){
-      var obj = Downloadify.queue[queue];
+      var obj = Downloadomatic.queue[queue];
       if(obj) obj.error();
       return true;
     },
     addToQueue: function(container){
-      Downloadify.queue[container.queue_name] = container;
+      Downloadomatic.queue[container.queue_name] = container;
     },
     // Concept adapted from: http://tinyurl.com/yzsyfto
     // SWF object runs off of ID's, so this is the good way to get a unique ID
     getUID: function(el){
-      if(el.id == "") el.id = 'downloadify_' + Downloadify.uid++;
+      if(el.id == "") el.id = 'downloadomatic_' + Downloadomatic.uid++;
       return el.id;
     }
   };
  
-  Downloadify.create = function( idOrDOM, options ){
+  Downloadomatic.create = function( idOrDOM, options ){
     var el = (typeof(idOrDOM) == "string" ? document.getElementById(idOrDOM) : idOrDOM );
-    return new Downloadify.Container(el, options);
+    return new Downloadomatic.Container(el, options);
   };
  
-  Downloadify.Container = function(el, options){
+  Downloadomatic.Container = function(el, options){
     var base = this;
  
     base.el = el;
@@ -93,7 +107,7 @@
       base.flashContainer = document.createElement('span');
       base.el.appendChild(base.flashContainer);
         
-      base.queue_name = Downloadify.getUID( base.flashContainer );
+      base.queue_name = Downloadomatic.getUID( base.flashContainer );
  
       if( typeof(base.options.filename) === "function" )
          base.filenameCallback = base.options.filename;
@@ -129,7 +143,7 @@
       
       swfobject.embedSWF(base.options.swf, base.flashContainer.id, base.options.width, base.options.height, "10", null, flashVars, params, attributes );
 
-      Downloadify.addToQueue( base );
+      Downloadomatic.addToQueue( base );
      };
 
     base.enable = function(){
@@ -184,8 +198,8 @@
     base.loaded();
   };
   
-  Downloadify.defaultOptions = {
-    swf: 'src/downloadify.swf',
+  Downloadomatic.defaultOptions = {
+    swf: 'src/downloadomatic.swf',
     downloadImage: 'src/download.png',
     width: 100,
     height: 30,
@@ -201,21 +215,21 @@ if(typeof(jQuery) != "undefined") {
 
   (function ($) {
 
-    $.fn.downloadify = function(options) {
+    $.fn.downloadomatic = function(options) {
 
       return this.each(function () {
 
-        options = $.extend({}, Downloadify.defaultOptions, options);
+        options = $.extend({}, Downloadomatic.defaultOptions, options);
 
         var flash = true;
 
         if (flash) {
 
-          // Create instance of downloadify.
-          var dl = Downloadify.create(this, options);
+          // Create instance of downloadomatic.
+          var dl = Downloadomatic.create(this, options);
 
-          // Start downloadify.
-          $(this).data('Downloadify', dl);
+          // Start downloadomatic.
+          $(this).data('Downloadomatic', dl);
         }
         else {
 

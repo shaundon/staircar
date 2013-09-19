@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Downloadify Polyfill Test</title>
+		<title>Downloadomatic Example</title>
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -9,7 +9,7 @@
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 		<script type="text/javascript" src="src/swfobject.js"></script>
-		<script type="text/javascript" src="src/downloadify.js"></script>
+		<script type="text/javascript" src="src/downloadomatic.js"></script>
 
 		<style>
 			body {
@@ -44,12 +44,12 @@
 				// Convert JSON to CSV.
 				var csv = JsonToCsv(DATA);
 
-				$("#downloadify-element").downloadify({
+				$("#downloadomatic-element").downloadify({
 					data: csv,
 					filename: "download.csv",
 					mimeType: "text/csv",
 					afterInit: function() {
-						$("#downloadify-modal").modal();
+						$("#downloadomatic-modal").modal();
 					}
 				});
 			});
@@ -96,7 +96,7 @@ function JsonToCsv(json) {
 
 	<body>
 
-		<h1>Downloadify Test</h1>
+		<h1>Downloadomatic Test</h1>
 
 		<p>Download some test JSON data as CSV (hard coded in a <code>script</code>
 			element).
@@ -109,7 +109,7 @@ function JsonToCsv(json) {
 
 		<button id="download-btn" type="button" class="btn btn-primary">Export (CSV)</button>
 
-		<div id="downloadify-modal" class="modal fade">
+		<div id="downloadomatic-modal" class="modal fade">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -117,7 +117,7 @@ function JsonToCsv(json) {
 		        <h4 class="modal-title">Your Download Is Ready</h4>
 		      </div>
 		      <div class="modal-body">
-				<p id="downloadify-element" style="text-align: center;">
+				<p id="downloadomatic-element" style="text-align: center;">
 					<strong>Your browser doesn't support downloading this file.</strong><br/>
 				    Upgrade to a more modern browser, like <a href="http://www.google.com/chrome" target="_blank">Chrome</a> or <a href="http://www.getfirefox.com" target="_blank">Firefox</a>, or <a href="http://get.adobe.com/flashplayer" target="_blank">download Flash Player</a>. 
 				    </p>
