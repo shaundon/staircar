@@ -221,17 +221,8 @@ if(typeof(jQuery) != "undefined") {
 
         options = $.extend({}, Downloadomatic.defaultOptions, options);
 
-        var flash = true;
-
-        if (flash) {
-
-          // Create instance of downloadomatic.
-          var dl = Downloadomatic.create(this, options);
-
-          // Start downloadomatic.
-          $(this).data('Downloadomatic', dl);
-        }
-        else {
+        // If the browser can use data URI for download.
+        if (CanUseDataURI()) {
 
           // Encode the data.
           var encodedData = encodeURIComponent(options.data);
@@ -242,10 +233,52 @@ if(typeof(jQuery) != "undefined") {
           // Navigate to the data URI, which should prompt a download.
           window.location.href = dataURI;
         }
+        else {
+
+          // Create instance of downloadomatic.
+          var dl = Downloadomatic.create(this, options);
+
+          // Start downloadomatic.
+          $(this).data('Downloadomatic', dl);
+        }
 
       });
 
     };
+
+    function CanUseDataURI() {
+
+      /*
+      ***** About data URI support *****
+
+      As of September 2013, data URIs work
+      correctly in Chrome and Firefox.
+
+      Safari opens the file instead of starting a download.
+
+      Internet Explorer does support data URI, but only for certain
+      MIME content types, for security reasons. 
+
+      Please see http://en.wikipedia.org/wiki/Data_URI_scheme#Web_browser_support
+      for more information.
+
+      Please feel free to change this function when browser
+      support changes.
+
+      */
+
+      // Check for IE.
+      if (navigator.appName === 'Microsoft Internet Explorer') {
+        return false;
+      }
+
+      // Check for Safari. Sorry Safari :(
+      if (Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0) { 
+        return false;
+      }
+
+      return true;
+    }
 
   })(jQuery);
 
