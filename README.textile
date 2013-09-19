@@ -1,4 +1,17 @@
-h2. Downloadify: Client Side File Creation
+*_
+This is a fork of "Downloadify":http://https://github.com/dcneiner/Downloadify.
+
+The readme below is the same as the original one as the changes here are minor.
+
+This fork adds the following things:
+- The ability to save a file using a data URI instead of flash, based on browser sniffing.
+- A 'mimeType' option, that is used when creating the data URI.
+- An optional 'afterInit' callback function that executes after the flash button has been initialised.
+
+The example in test.html reflects the changes made here. There's a button to download a CSV that's hard coded into the page. When the button is pressed, if the browser supports downloading via a data URI, it simply downloads. If it doesn't, a modal opens containing the flash based download button.
+_*
+
+h2. Downloadomatic: Client Side File Creation
 
 *_Important! The swf has been compiled for online use only. Testing from the file path (i.e. file:// ) will not work as it will violate the security sandbox._*
 
