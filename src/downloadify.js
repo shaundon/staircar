@@ -185,8 +185,8 @@
   };
   
   Downloadify.defaultOptions = {
-    swf: 'media/downloadify.swf',
-    downloadImage: 'images/download.png',
+    swf: 'src/downloadify.swf',
+    downloadImage: 'src/download.png',
     width: 100,
     height: 30,
     transparent: true,
