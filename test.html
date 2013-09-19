@@ -20,74 +20,17 @@
 
 		<script>
 
-			// Hard coded JSON response.
-			var DATA = [
-				{
-					"Header 1": "Data 1",
-					"Header 2": "Data 2",
-					"Header 3": "Data 3"
-				},
-				{
-					"Header 1": "Data 4",
-					"Header 2": "Data 5",
-					"Header 3": "Data 6"
-				},
-				{
-					"Header 1": "Data 7",
-					"Header 2": "Data 8",
-					"Header 3": "Data 9"
-				}
-			];
-
 			$(document).on("click", "#download-btn", function () {
 
-				// Convert JSON to CSV.
-				var csv = JsonToCsv(DATA);
-
 				$("#downloadomatic-element").downloadomatic({
-					data: csv,
-					filename: "download.csv",
-					mimeType: "text/csv",
+					data: $("#data").val(),
+					filename: $("#filename").val(),
+					mimeType: $("#mime").val(),
 					afterInit: function() {
 						$("#downloadomatic-modal").modal();
 					}
 				});
 			});
-
-function JsonToCsv(json) {
-
-	var csv = '';
-
-	// Begin with the header row, using
-	// the keys.
-	for (var key in json[0]) {
-
-		csv += key + ',';
-	}
-
-	// Cut off the trailing comma.
-	csv = csv.substring(0, csv.length-1);
-
-	csv += '\r\n';
-
-	// Iterate through the rows.
-	for (var i=0; i<json.length; i++) {
-
-		var line = '';
-		for (var key in json[i]) {
-
-			if (line != '') {
-				line += ',';
-			}
-
-		    line += json[i][key];
-		}
-
-		csv += line + '\r\n';
-	}
-
-	return csv;
-}
 
 		</script>
 
@@ -98,16 +41,35 @@ function JsonToCsv(json) {
 
 		<h1>Downloadomatic Test</h1>
 
-		<p>Download some test JSON data as CSV (hard coded in a <code>script</code>
-			element).
-		</p>
-
 		<p>
 			If your browser supports downloading data URIs, the download will
 			be pure JavaScript. Otherwise, it'll fall back to Flash.
 		</p>
 
-		<button id="download-btn" type="button" class="btn btn-primary">Export (CSV)</button>
+		<p>
+			Note that downloads using a data URI uses a filename
+			chosen by the browser, so filename field will only
+			be used if the download uses Flash.
+		</p>
+
+		<p>
+			<label for="filename">Filename (including extension)</label><br/>
+			<input type="text" id="filename" class="form-control" value="download.csv" />
+		</p>
+
+		<p>
+			<label for="mime">MIME Type</label><br/>
+			<input type="text" id="mime" class="form-control" value="text/csv" />
+		</p>
+
+		<p>
+			<label for="data">File Contents</label><br/>
+			<textarea id="data" class="form-control">Heading 1,Heading 2,Heading 3
+Data 1,Data 2,Data 3
+Data 4,Data 5,Data 6</textarea>
+		</p>
+
+		<button id="download-btn" type="button" class="btn btn-primary">Download</button>
 
 		<div id="downloadomatic-modal" class="modal fade">
 		  <div class="modal-dialog">
