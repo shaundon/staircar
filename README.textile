@@ -2,27 +2,34 @@
 
 The readme below is the same as the original one as the changes here are minor.
 
-This fork adds the following things:
-* The ability to save a file using a data URI instead of flash, based on browser sniffing.
-* A 'mimeType' option, that is used when creating the data URI.
-* An optional 'afterInit' callback function that executes after the flash button has been initialised.
+h3. New Options
 
-The example in test.html reflects the changes made here. There's a button to download a CSV that's hard coded into the page. When the button is pressed, if the browser supports downloading via a data URI, it simply downloads. If it doesn't, a modal opens containing the flash based download button.
+There are a few new options:
+
+* *mimeType* - Data URI's require this. Defaults to 'text/plain'.
+* *customLinkClass* - Optional class to add to the link that is generated for Safari users. 
+* *afterFlashInit* - Function to call after the Flash portion executes. In test.html, this adds some help text explaining what to do if you don't have Flash Player, and opens a modal where the download button has been placed.
+* *afterSafariInit* - Function to call after the Safari only portion executes. In test.html, this adds some help text explaining how to save the file, and opens a modal where the download button has been placed.
+
+The example in test.html reflects the changes made here. There's a form to enter filename, MIME type and file content. 
+
+When the button is pressed, if you have IE, a modal appears with a Flash based download button. If you have Safari, you get a modal with a HTML link to open a data URI in a new tab, and download instructions. All other browsers just download the data URI seamlessly.
 
 h3. Browser Support
 
 The decision on whether to launch a HTML or Flash download is based on browser detection. Feature detection would be preferable, but I haven't found a good way of implementing this yet.
 
-h4. Browsers That Revert To A Flash Download
-
 *Internet Explorer* - Whilst IE does support data URIs, it only allows them for certain MIME content types (see http://en.wikipedia.org/wiki/Data_URI_scheme#Web_browser_support).
 
 A future update is planned to allow non flash downloads proceed in IE for allowed MIME types.
 
-*Safari* - Safari supports data URIs fine, but when opening one, instead of downloading the file, it opens it in the current window. Therefore it's slightly inoptimal, and for now reverts to flash.
+*Safari* - Safari supports data URIs fine, but when opening one, instead of downloading the file, it opens it in the current window. Therefore it's slightly inoptimal, so the workaround is to present a link that opens in a new tab, and some instructions for the user on how to download the resulting data.
+
+All other browsers are set to use a data URI for a seamless download.
 
 
- - - - - - *Original readme follows* - - - - - 
+
+                        - - - - - *Original readme follows* - - - - - 
 
 
 

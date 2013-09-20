@@ -248,9 +248,9 @@ if(typeof(jQuery) != "undefined") {
           var downloadLink = "<a href='" + dataURI + "' target='_blank'";
 
           // Add the custom class, if one was specified.
-          if (options.customButtonClass) {
+          if (options.customLinkClass) {
 
-            downloadLink += " class='" + options.customButtonClass + "'";
+            downloadLink += " class='" + options.customLinkClass + "'";
           }
 
           downloadLink += ">Download</a>";
