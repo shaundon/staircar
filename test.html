@@ -26,6 +26,7 @@
 					data: $("#data").val(),
 					filename: $("#filename").val(),
 					mimeType: $("#mime").val(),
+					customButtonClass: "btn btn-primary",
 					afterInit: function() {
 						$("#downloadomatic-modal").modal();
 					}
@@ -41,13 +42,22 @@
 
 		<h1>Downloadomatic Test</h1>
 
-		<p>
-			If your browser supports downloading data URIs, the download will
-			be pure JavaScript. Otherwise, it'll fall back to Flash.
-		</p>
+		<hr />
+
+		<h4>Safari</h4>
+		<p>A modal will open, with a link to a data URI and instructions on
+		how to save it.</p>
+
+		<h4>Internet Explorer</h4>
+		<p>A modal will open, with a Flash powered download button.</p>
+
+		<h4>Other Browsers (Chrome, Firefox, Opera etc)</h4>
+		<p>Download will use a data URI and start automatically.</p>
+
+		<hr />
 
 		<p>
-			Note that downloads using a data URI uses a filename
+			Note that downloads using a data URI use a filename
 			chosen by the browser, so filename field will only
 			be used if the download uses Flash.
 		</p>
