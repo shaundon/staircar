@@ -27,9 +27,29 @@
 					filename: $("#filename").val(),
 					mimeType: $("#mime").val(),
 					customButtonClass: "btn btn-primary",
-					afterInit: function() {
+					afterFlashInit: function() {
+
+						// Add the help text.
+						var helpText = "<p style='text-align: center; font-size: 75%;'>If you do not see a download button, upgrade to <a href='http://www.google.com/chrome' target='_blank'>Chrome</a> or <a href='http://www.getfirefox.com' target='_blank'>Firefox</a>, or <a href='http://get.adobe.com/flashplayer' target='_blank'>download Flash Player</a>.</p>";
+
+						// Append it to the modal.
+						$("#downloadomatic-element").append(helpText);
+
+						// Display the modal.
+						$("#downloadomatic-modal").modal();
+					},
+					afterSafariInit: function() {
+
+						// Add the help text.
+						var helpText = "<p>Select the <strong>Download</strong> link, then select <strong>File</strong>, then <strong>Save</strong>.</p>";
+
+						// Append it to the modal.
+						$("#downloadomatic-element").append(helpText);
+
+						// Displauy the modal.
 						$("#downloadomatic-modal").modal();
 					}
+
 				});
 			});
 
@@ -89,11 +109,7 @@ Data 4,Data 5,Data 6</textarea>
 		        <h4 class="modal-title">Your Download Is Ready</h4>
 		      </div>
 		      <div class="modal-body">
-				<p id="downloadomatic-element" style="text-align: center;">
-				</p>
-				<p style="text-align: center; font-size: 75%;">
-					If you do not see a download button, upgrade to <a href="http://www.google.com/chrome" target="_blank">Chrome</a> or <a href="http://www.getfirefox.com" target="_blank">Firefox</a>, or <a href="http://get.adobe.com/flashplayer" target="_blank">download Flash Player</a>. 
-				</p>
+				<p id="downloadomatic-element" style="text-align: center;"></p>
 		      </div>
 
 		    </div><!-- /.modal-content -->

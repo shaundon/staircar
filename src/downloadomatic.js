@@ -189,12 +189,12 @@
     };
 
     base.loaded = function(){
-      if( typeof(base.options.afterInit) === "function" ) base.options.afterInit();
+      if( typeof(base.options.afterFlashInit) === "function" ) base.options.afterFlashInit();
     };
   
     init();
 
-    // afterInit callback.
+    // afterFlashInit callback.
     base.loaded();
   };
   
@@ -220,6 +220,9 @@ if(typeof(jQuery) != "undefined") {
       return this.each(function () {
 
         options = $.extend({}, Downloadomatic.defaultOptions, options);
+
+        // Clear the element content.
+        $(this).html("");
 
         // If IE, use flash.
         if (IsMSIE()) {
@@ -251,15 +254,14 @@ if(typeof(jQuery) != "undefined") {
           }
 
           downloadLink += ">Download</a>";
-
-
-          var infoText = "<p>Select the <strong>Download</strong> link, then select <strong>File</strong>, then <strong>Save</strong>.</p>";
         
+          // Add the download link.
           $(this).append(downloadLink);
-          $(this).append(infoText);
 
-          // afterInit callback.
-          options.afterInit();
+          // afterSafariInit callback.
+          if (options.afterSafariInit) {
+            options.afterSafariInit();
+          }
         }
 
         // Start a download.
