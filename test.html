@@ -27,7 +27,7 @@
 					filename: $("#filename").val(),
 					mimeType: $("#mime").val(),
 					customLinkClass: "btn btn-primary",
-					force: 'IE',
+					force: GetEmulation(),
 					afterFlashInit: function() {
 
 						// Add the help text.
@@ -54,6 +54,19 @@
 				});
 			});
 
+			function GetEmulation() {
+
+				// Get the selected radio button.
+				var browserToEmulate = $("input[type='radio'][name='emulate']:checked").val();
+
+				// Validate.
+				if (browserToEmulate != "IE" && browserToEmulate != "Safari") {
+					browserToEmulate = "";
+				}
+
+				return browserToEmulate;
+			}
+
 		</script>
 
 
@@ -74,6 +87,34 @@
 
 		<h4>Other Browsers (Chrome, Firefox, Opera etc)</h4>
 		<p>Download will use a data URI and start automatically.</p>
+
+		<hr />
+
+		<div>
+
+			<h4>Emulate a Browser</h4>
+
+			<p>You can use the <code>force</code> parameter to
+			emulate a particular browser's behavious. These radio
+			buttons set this parameter.
+			</p>
+
+			<div>
+				<input type="radio" id="emulate-default" name="emulate" checked="checked" value="None" />
+				<label for="emulate-default">Automatic (Use browser detection)</label>
+			</div>
+
+			<div>
+				<input type="radio" id="emulate-ie" name="emulate" value="IE" />
+				<label for="emulate-ie">Internet Explorer (Flash download)</label>
+			</div>
+
+			<div>
+				<input type="radio" id="emulate-safari" name="emulate" value="Safari" />
+				<label for="emulate-safari">Safari (Data URI in a new tab)</label>
+			</div>
+
+		</div>
 
 		<hr />
 
