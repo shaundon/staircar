@@ -206,7 +206,8 @@
     transparent: true,
     append: false,
     dataType: "string",
-    mimeType: "text/plain"
+    mimeType: "text/plain",
+    force: "none"
   };
 })();
 
@@ -225,7 +226,7 @@ if(typeof(jQuery) != "undefined") {
         $(this).html("");
 
         // If IE, use flash.
-        if (IsMSIE()) {
+        if (IsMSIE() || options.force == "IE") {
 
           // Create instance of downloadomatic.
           var dl = Downloadomatic.create(this, options);
@@ -236,7 +237,7 @@ if(typeof(jQuery) != "undefined") {
 
         // If Safari, add a link to the download
         // with some instructions.
-        else if (IsSafari()) {
+        else if (IsSafari() || options.force == "Safari") {
 
           // Encode the data.
           var encodedData = encodeURIComponent(options.data);

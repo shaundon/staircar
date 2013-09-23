@@ -10,6 +10,7 @@ There are a few new options:
 * *customLinkClass* - Optional class to add to the link that is generated for Safari users. 
 * *afterFlashInit* - Function to call after the Flash portion executes. In test.html, this adds some help text explaining what to do if you don't have Flash Player, and opens a modal where the download button has been placed.
 * *afterSafariInit* - Function to call after the Safari only portion executes. In test.html, this adds some help text explaining how to save the file, and opens a modal where the download button has been placed.
+* *force* - Force Downloadomatic to behave as if a specific browser is being used. The available options are *Safari* and *IE* (defaults to no forcing).
 
 The example in test.html reflects the changes made here. There's a form to enter filename, MIME type and file content. 
 
