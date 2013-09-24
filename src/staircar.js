@@ -1,5 +1,5 @@
 /*
-  Downloadomatic: Client Side File Creation
+  Staircar: Client Side File Creation
 
   JavaScript + Flash Library
   
@@ -40,56 +40,56 @@
 */
 
 (function(){
-  Downloadomatic = window.Downloadomatic = {
+  Staircar = window.Staircar = {
     queue: {},
     uid: new Date().getTime(), 
     getTextForSave: function(queue){
-      var obj = Downloadomatic.queue[queue];
+      var obj = Staircar.queue[queue];
       if(obj) return obj.getData();
       return "";
     },
     getFileNameForSave: function(queue){
-      var obj = Downloadomatic.queue[queue];
+      var obj = Staircar.queue[queue];
       if(obj) return obj.getFilename();
       return "";
     },
     getDataTypeForSave: function(queue){
-      var obj = Downloadomatic.queue[queue];
+      var obj = Staircar.queue[queue];
       if(obj) return obj.getDataType();
       return "";
     },
     saveComplete: function(queue){
-      var obj = Downloadomatic.queue[queue];
+      var obj = Staircar.queue[queue];
       if(obj) obj.complete();
       return true;
     },
     saveCancel: function(queue){
-      var obj = Downloadomatic.queue[queue];
+      var obj = Staircar.queue[queue];
       if(obj) obj.cancel();
       return true;
     },
     saveError: function(queue){
-      var obj = Downloadomatic.queue[queue];
+      var obj = Staircar.queue[queue];
       if(obj) obj.error();
       return true;
     },
     addToQueue: function(container){
-      Downloadomatic.queue[container.queue_name] = container;
+      Staircar.queue[container.queue_name] = container;
     },
     // Concept adapted from: http://tinyurl.com/yzsyfto
     // SWF object runs off of ID's, so this is the good way to get a unique ID
     getUID: function(el){
-      if(el.id == "") el.id = 'downloadomatic_' + Downloadomatic.uid++;
+      if(el.id == "") el.id = 'staircar_' + Staircar.uid++;
       return el.id;
     }
   };
  
-  Downloadomatic.create = function( idOrDOM, options ){
+  Staircar.create = function( idOrDOM, options ){
     var el = (typeof(idOrDOM) == "string" ? document.getElementById(idOrDOM) : idOrDOM );
-    return new Downloadomatic.Container(el, options);
+    return new Staircar.Container(el, options);
   };
  
-  Downloadomatic.Container = function(el, options){
+  Staircar.Container = function(el, options){
     var base = this;
  
     base.el = el;
@@ -107,7 +107,7 @@
       base.flashContainer = document.createElement('span');
       base.el.appendChild(base.flashContainer);
         
-      base.queue_name = Downloadomatic.getUID( base.flashContainer );
+      base.queue_name = Staircar.getUID( base.flashContainer );
  
       if( typeof(base.options.filename) === "function" )
          base.filenameCallback = base.options.filename;
@@ -143,7 +143,7 @@
       
       swfobject.embedSWF(base.options.swf, base.flashContainer.id, base.options.width, base.options.height, "10", null, flashVars, params, attributes );
 
-      Downloadomatic.addToQueue( base );
+      Staircar.addToQueue( base );
      };
 
     base.enable = function(){
@@ -198,8 +198,8 @@
     base.loaded();
   };
   
-  Downloadomatic.defaultOptions = {
-    swf: 'src/downloadomatic.swf',
+  Staircar.defaultOptions = {
+    swf: 'src/staircar.swf',
     downloadImage: 'src/download.png',
     width: 100,
     height: 30,
@@ -216,11 +216,11 @@ if(typeof(jQuery) != "undefined") {
 
   (function ($) {
 
-    $.fn.downloadomatic = function(options) {
+    $.fn.staircar = function(options) {
 
       return this.each(function () {
 
-        options = $.extend({}, Downloadomatic.defaultOptions, options);
+        options = $.extend({}, Staircar.defaultOptions, options);
 
         // Clear the element content.
         $(this).html("");
@@ -228,11 +228,11 @@ if(typeof(jQuery) != "undefined") {
         // If IE, use flash.
         if (IsMSIE() || options.force == "IE") {
 
-          // Create instance of downloadomatic.
-          var dl = Downloadomatic.create(this, options);
+          // Create instance of staircar.
+          var dl = Staircar.create(this, options);
 
-          // Start downloadomatic.
-          $(this).data('Downloadomatic', dl);
+          // Start staircar.
+          $(this).data('Staircar', dl);
         }
 
         // If Safari, add a link to the download

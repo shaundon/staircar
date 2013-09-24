@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Downloadomatic Example</title>
+		<title>Staircar</title>
 
 		<script src="demo-dependencies/jquery.min.js"></script>
 
@@ -9,7 +9,7 @@
 		<script src="demo-dependencies/bootstrap.min.js"></script>
 
 		<script type="text/javascript" src="src/swfobject.js"></script>
-		<script type="text/javascript" src="src/downloadomatic.js"></script>
+		<script type="text/javascript" src="src/staircar.js"></script>
 
 		<style>
 			body {
@@ -22,7 +22,7 @@
 
 			$(document).on("click", "#download-btn", function () {
 
-				$("#downloadomatic-element").downloadomatic({
+				$("#staircar-element").staircar({
 					data: $("#data").val(),
 					filename: $("#filename").val(),
 					mimeType: $("#mime").val(),
@@ -34,10 +34,10 @@
 						var helpText = "<p style='text-align: center; font-size: 75%;'>If you do not see a download button, upgrade to <a href='http://www.google.com/chrome' target='_blank'>Chrome</a> or <a href='http://www.getfirefox.com' target='_blank'>Firefox</a>, or <a href='http://get.adobe.com/flashplayer' target='_blank'>download Flash Player</a>.</p>";
 
 						// Append it to the modal.
-						$("#downloadomatic-element").append(helpText);
+						$("#staircar-element").append(helpText);
 
 						// Display the modal.
-						$("#downloadomatic-modal").modal();
+						$("#staircar-modal").modal();
 					},
 					afterSafariInit: function() {
 
@@ -45,10 +45,10 @@
 						var helpText = "<p>Select the <strong>Download</strong> link, then select <strong>File</strong>, then <strong>Save</strong>.</p>";
 
 						// Append it to the modal.
-						$("#downloadomatic-element").append(helpText);
+						$("#staircar-element").append(helpText);
 
 						// Displauy the modal.
-						$("#downloadomatic-modal").modal();
+						$("#staircar-modal").modal();
 					}
 
 				});
@@ -74,7 +74,7 @@
 
 	<body>
 
-		<h1>Downloadomatic Test</h1>
+		<h1>Staircar Test</h1>
 
 		<hr />
 
@@ -143,7 +143,7 @@ Data 4,Data 5,Data 6</textarea>
 
 		<button id="download-btn" type="button" class="btn btn-primary">Download</button>
 
-		<div id="downloadomatic-modal" class="modal fade">
+		<div id="staircar-modal" class="modal fade">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -151,7 +151,7 @@ Data 4,Data 5,Data 6</textarea>
 		        <h4 class="modal-title">Your Download Is Ready</h4>
 		      </div>
 		      <div class="modal-body">
-				<p id="downloadomatic-element" style="text-align: center;"></p>
+				<p id="staircar-element" style="text-align: center;"></p>
 		      </div>
 
 		    </div><!-- /.modal-content -->

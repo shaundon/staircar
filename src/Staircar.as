@@ -1,5 +1,5 @@
 /*
-  Downloadomatic: Client Side File Creation
+  Staircar: Client Side File Creation
 
   JavaScript + Flash Library
   
@@ -53,7 +53,7 @@ package {
   
   [SWF(backgroundColor="#CCCCCC")]
   [SWF(backgroundAlpha=0)]
-  public class Downloadomatic extends Sprite {
+  public class Staircar extends Sprite {
     
     private var options:Object,
                 file:FileReference = new FileReference(),
@@ -70,7 +70,7 @@ package {
                 
                 button:Loader;
     
-    public function Downloadomatic() {
+    public function Staircar() {
       Security.allowDomain('*');
       
       stage.align = StageAlign.TOP_LEFT;
@@ -156,9 +156,9 @@ package {
     }
     
     protected function onMouseClickEvent(event:Event):void{
-      var theData:String  = ExternalInterface.call('Downloadomatic.getTextForSave',queue_name),
-          filename:String = ExternalInterface.call('Downloadomatic.getFileNameForSave',queue_name),
-          dataType:String = ExternalInterface.call('Downloadomatic.getDataTypeForSave',queue_name);
+      var theData:String  = ExternalInterface.call('Staircar.getTextForSave',queue_name),
+          filename:String = ExternalInterface.call('Staircar.getFileNameForSave',queue_name),
+          dataType:String = ExternalInterface.call('Staircar.getDataTypeForSave',queue_name);
           
       if (dataType == "string" && theData != "") {
         file.save(theData, filename);
@@ -171,17 +171,17 @@ package {
     
     protected function onSaveComplete(event:Event):void{
       trace('Save Complete');
-      ExternalInterface.call('Downloadomatic.saveComplete',queue_name);
+      ExternalInterface.call('Staircar.saveComplete',queue_name);
     }
     
     protected function onSaveCancel(event:Event):void{
       trace('Save Cancel');
-      ExternalInterface.call('Downloadomatic.saveCancel',queue_name);  
+      ExternalInterface.call('Staircar.saveCancel',queue_name);  
     }
     
     protected function onSaveError():void{
       trace('Save Error');
-      ExternalInterface.call('Downloadomatic.saveError',queue_name);  
+      ExternalInterface.call('Staircar.saveError',queue_name);  
     }
     
   }
