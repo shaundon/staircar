@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Staircar Demo</title>
+
+		<!-- External stuff required for the demo. -->
+		<script src="jquery.min.js"></script>
+		<link href="bootstrap.min.css" rel="stylesheet">
+		<script src="bootstrap.min.js"></script>
+
+		<!-- Required to use staircar. -->
+		<script src="src/swfobject.js"></script>
+		<script src="src/staircar.js"></script>
+
+		<style>
+			body {
+				width: 60%;
+				margin: 50px auto;
+			}
+		</style>
+
+		<script>
+
+			$(document).on("click", "#download-btn", function () {
+
+				$("#staircar-element").staircar({
+					data: $("#data").val(),
+					filename: $("#filename").val(),
+					mimeType: $("#mime").val(),
+					customLinkClass: "btn btn-primary",
+					force: GetEmulation(),
+					afterFlashInit: function() {
+
+						// Add the help text.
+						var helpText = "<p style='text-align: center; font-size: 75%;'>If you do not see a download button, upgrade to <a href='http://www.google.com/chrome' target='_blank'>Chrome</a> or <a href='http://www.getfirefox.com' target='_blank'>Firefox</a>, or <a href='http://get.adobe.com/flashplayer' target='_blank'>download Flash Player</a>.</p>";
+
+						// Append it to the modal.
+						$("#staircar-element").append(helpText);
+
+						// Display the modal.
+						$("#staircar-modal").modal();
+					},
+					afterSafariInit: function() {
+
+						// Add the help text.
+						var helpText = "<p>Select the <strong>Download</strong> link, then select <strong>File</strong>, then <strong>Save</strong>.</p>";
+
+						// Append it to the modal.
+						$("#staircar-element").append(helpText);
+
+						// Displauy the modal.
+						$("#staircar-modal").modal();
+					}
+
+				});
+			});
+
+			function GetEmulation() {
+
+				// Get the selected radio button.
+				var browserToEmulate = $("input[type='radio'][name='emulate']:checked").val();
+
+				// Validate.
+				if (browserToEmulate != "IE" && browserToEmulate != "Safari") {
+					browserToEmulate = "";
+				}
+
+				return browserToEmulate;
+			}
+
+		</script>
+
+
+	</head>
+
+	<body>
+
+		<h1>Staircar Demo</h1>
+
+		<hr />
+
+		<h4>Safari</h4>
+		<p>A modal will open, with a link to a data URI and instructions on
+		how to save it.</p>
+
+		<h4>Internet Explorer</h4>
+		<p>A modal will open, with a Flash powered download button.</p>
+
+		<h4>Other Browsers (Chrome, Firefox, Opera etc)</h4>
+		<p>Download will use a data URI and start automatically.</p>
+
+		<hr />
+
+		<div>
+
+			<h4>Emulate a Browser</h4>
+
+			<p>You can use the <code>force</code> parameter to
+			emulate a particular browser's behavious. These radio
+			buttons set this parameter.
+			</p>
+
+			<div>
+				<input type="radio" id="emulate-default" name="emulate" checked="checked" value="None" />
+				<label for="emulate-default">Automatic (Use browser detection)</label>
+			</div>
+
+			<div>
+				<input type="radio" id="emulate-ie" name="emulate" value="IE" />
+				<label for="emulate-ie">Internet Explorer (Flash download)</label>
+			</div>
+
+			<div>
+				<input type="radio" id="emulate-safari" name="emulate" value="Safari" />
+				<label for="emulate-safari">Safari (Data URI in a new tab)</label>
+			</div>
+
+		</div>
+
+		<hr />
+
+		<p>
+			Note that downloads using a data URI use a filename
+			chosen by the browser, so filename field will only
+			be used if the download uses Flash.
+		</p>
+
+		<p>
+			<label for="filename">Filename (including extension)</label><br/>
+			<input type="text" id="filename" class="form-control" value="download.csv" />
+		</p>
+
+		<p>
+			<label for="mime">MIME Type</label><br/>
+			<input type="text" id="mime" class="form-control" value="text/csv" />
+		</p>
+
+		<p>
+			<label for="data">File Contents</label><br/>
+			<textarea id="data" class="form-control">Heading 1,Heading 2,Heading 3
+Data 1,Data 2,Data 3
+Data 4,Data 5,Data 6</textarea>
+		</p>
+
+		<button id="download-btn" type="button" class="btn btn-primary">Download</button>
+
+		<div id="staircar-modal" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 class="modal-title">Your Download Is Ready</h4>
+		      </div>
+		      <div class="modal-body">
+				<p id="staircar-element" style="text-align: center;"></p>
+		      </div>
+
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+	</body>
+</html>
