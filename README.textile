@@ -1,4 +1,4 @@
-*This is a fork of "Downloadify":http://https://github.com/dcneiner/Downloadify.*
+*This is a fork of "Downloadify":https://github.com/dcneiner/Downloadify.*
 
 The readme below is the same as the original one as the changes here are minor.
 
